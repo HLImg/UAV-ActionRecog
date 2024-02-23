@@ -14,7 +14,7 @@ from tools.data.parse_file_list import (parse_directory, parse_diving48_splits,
                                         parse_kinetics_splits,
                                         parse_mit_splits, parse_mmit_splits,
                                         parse_sthv1_splits, parse_sthv2_splits,
-                                        parse_ucf101_splits)
+                                        parse_ucf101_splits, parse_uavhuman_splits)
 
 
 def parse_args():
@@ -25,7 +25,7 @@ def parse_args():
         choices=[
             'ucf101', 'kinetics400', 'kinetics600', 'kinetics700', 'thumos14',
             'sthv1', 'sthv2', 'mit', 'mmit', 'activitynet', 'hmdb51', 'jester',
-            'diving48'
+            'diving48', 'uavhuman'
         ],
         help='dataset to be built file list')
     parser.add_argument(
@@ -211,17 +211,19 @@ def main():
         splits = parse_jester_splits(args.level)
     elif args.dataset == 'diving48':
         splits = parse_diving48_splits()
+    elif args.dataset == 'uavhuman':
+        splits = parse_uavhuman_splits(args.level)
     else:
         raise ValueError(
             f"Supported datasets are 'ucf101, sthv1, sthv2', 'jester', "
             f"'mmit', 'mit', 'kinetics400', 'kinetics600', 'kinetics700', but "
             f'got {args.dataset}')
-
+    
     assert len(splits) == args.num_split
 
     out_path = args.out_root_path + args.dataset
 
-    if len(splits) > 1:
+    if len(splits) > 1 or len(splits) == 1 and len(splits[0]) > 1:
         for i, split in enumerate(splits):
             file_lists = build_file_list(
                 split, frame_info, shuffle=args.shuffle)

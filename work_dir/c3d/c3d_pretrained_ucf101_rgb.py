@@ -72,7 +72,7 @@ test_pipeline = [
 # dataloader
 train_dataloader = dict(
     batch_size=30,
-    num_workers=8,
+    num_workers=4,
     # 数据加载完并不会关闭worker进程，而是保持现有的worker进程
     # 继续进行下一个Epoch的数据加载，加快训练速度，要求num_workers ≥ 1
     persistent_workers=True,
@@ -87,7 +87,7 @@ train_dataloader = dict(
 
 val_dataloader = dict(
     batch_size=30,
-    num_workers=8,
+    num_workers=4,
     persistent_workers=True,
     sampler=dict(type='DefaultSampler', shuffle=False),
     dataset=dict(
@@ -101,7 +101,7 @@ val_dataloader = dict(
 
 test_dataloader = dict(
     batch_size=1,
-    num_workers=8,
+    num_workers=4,
     persistent_workers=True,
     sampler=dict(type='DefaultSampler', shuffle=False),
     dataset=dict(
