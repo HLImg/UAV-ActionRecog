@@ -62,10 +62,12 @@ mkdir ./work_dir
 
 ```shell
 # 分布式训练
-bash tools/dist_train.sh work_dir/c3d/c3d_pretrained_ucf101_rgb.py 8 --work-dir results/checkpoints --seed 0 --deterministic
+bash tools/dist_train.sh work_dir/c3d/c3d_pretrained_ucf101_rgb.py 8 --work-dir results/checkpoints --seed=0 --deterministic
 # 
-python tools/train.py configs/recognition/c3d/c3d_sports1m-pretrained_8xb30-16x1x1-45e_ucf101-rgb.py --seed=0 --deterministic
+python tools/train.py work_dir/c3d_official/c3d_pretraied_ucf101_rgb_video.py --work-dir results/checkpoints --seed=0 --deterministic
 ```
+
+
 
 1. 在**config**文件中，[default_runtimes.pt](./work_dir/default_runtime.py)是必需的，否则会存在**Recognizer3D没有被注册的错误**
     ```python
@@ -76,4 +78,5 @@ python tools/train.py configs/recognition/c3d/c3d_sports1m-pretrained_8xb30-16x1
     ```
 
 https://blog.csdn.net/qq_29761909/article/details/126727152
+
 
