@@ -111,9 +111,12 @@ class BaseHead(BaseModule, metaclass=ABCMeta):
         Returns:
             dict: A dictionary of loss components.
         """
+        
         labels = [x.gt_label for x in data_samples]
         labels = torch.stack(labels).to(cls_scores.device)
         labels = labels.squeeze()
+        
+        print(cls_scores.shape, labels.shape, torch.mean(cls_scores))
 
         losses = dict()
         if labels.shape == torch.Size([]):
