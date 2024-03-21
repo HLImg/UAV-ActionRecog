@@ -116,7 +116,7 @@ class BaseHead(BaseModule, metaclass=ABCMeta):
         labels = torch.stack(labels).to(cls_scores.device)
         labels = labels.squeeze()
         
-        print(cls_scores.shape, labels.shape, torch.mean(cls_scores))
+        # print(cls_scores.shape, labels.shape, torch.mean(cls_scores))
 
         losses = dict()
         if labels.shape == torch.Size([]):
