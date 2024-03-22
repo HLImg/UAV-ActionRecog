@@ -1392,6 +1392,7 @@ class RawFrameDecode(BaseTransform):
         self.file_client = None
 
     def transform(self, results: dict) -> dict:
+        # print(results)
         """Perform the ``RawFrameDecode`` to pick frames given indices.
 
         Args:
