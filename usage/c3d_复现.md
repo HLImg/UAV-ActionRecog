@@ -62,7 +62,7 @@ mkdir ./work_dir
 
 ```shell
 # 分布式训练
-bash tools/dist_train.sh work_dir/c3d/c3d_pretrained_ucf101_rgb.py 8 --work-dir results/checkpoints --seed=0 --deterministic
+bash tools/dist_train.sh work_dir/c3d/c3d_pretrained_ucf101_rgb.py 1 --work-dir results/checkpoints --seed=0 --deterministic
 # 
 python tools/train.py work_dir/c3d_official/c3d_pretraied_ucf101_rgb_video.py --work-dir results/checkpoints --seed=0 --deterministic
 ```

@@ -151,3 +151,5 @@ mmaction/tools/*
 mmaction/.mim
 
 results/*
+
+data/**/*.json

@@ -1392,7 +1392,6 @@ class RawFrameDecode(BaseTransform):
         self.file_client = None
 
     def transform(self, results: dict) -> dict:
-        # print(results)
         """Perform the ``RawFrameDecode`` to pick frames given indices.
 
         Args:
@@ -1404,6 +1403,10 @@ class RawFrameDecode(BaseTransform):
         directory = results['frame_dir']
         filename_tmpl = results['filename_tmpl']
         modality = results['modality']
+        
+        act_name, video_name = directory.split('/')[-2:]
+        
+        print(act_name, video_name)
 
         if self.file_client is None:
             self.file_client = FileClient(self.io_backend, **self.kwargs)
@@ -1427,10 +1430,12 @@ class RawFrameDecode(BaseTransform):
             frame_idx += offset
             if modality == 'RGB':
                 filepath = osp.join(directory, filename_tmpl.format(frame_idx))
+                # print(directory)
                 img_bytes = self.file_client.get(filepath)
                 # Get frame with channel order RGB directly.
                 cur_frame = mmcv.imfrombytes(img_bytes, channel_order='rgb')
                 imgs.append(cur_frame)
+                print(cur_frame.shape, cur_frame.dtype)
             elif modality == 'Flow':
                 x_filepath = osp.join(directory,
                                       filename_tmpl.format('x', frame_idx))
