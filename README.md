@@ -80,4 +80,3 @@ accelerate launch --config_file=tools/single_acc.yml --num_processes=8 main.py -
 ## Thanks
 
 部分代码和组织结构参考[BasicSR](https://github.com/XPixelGroup/BasicSR), [MMAction2](https://github.com/open-mmlab/mmaction2)以及其他卓越的工作。
-

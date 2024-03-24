@@ -39,7 +39,7 @@ class RawFrameDecodeNoir2(BaseTransform):
         self.file_client = None
         
         with open(nori_file, 'r') as file:
-            self.nids = json.load(nori_file)
+            self.nids = json.load(file)
     
     def transform(self, results):
         mmcv.use_backend(self.decoding_backend)

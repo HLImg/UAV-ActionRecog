@@ -83,7 +83,7 @@ train_pipeline = [
 
 ```python
 file_client_args = dict(
-    io_backend='oss',
+    io_backend='disk',
     nori_file = 'data/ucf101/ucf101_train_split_1_nid.json',
     dtype = 'uint8',
     retry = 60
@@ -101,4 +101,65 @@ train_pipeline = [
     dict(type='FormatShape', input_format='NCTHW'),
     dict(type='PackActionInputs')
 ]
+```
+
+### C3D-UCF101-Nori2
+
+```shell
+bash tools/dist_train.sh work_dir/c3d/c3d_pretrained_ncf101_nori.py 1 --work-dir results/c3d_ucf101_nori --seed=0
+```
+相关的配置文件在[work_dir/c3d](../work_dir/c3d/)目录下，这面展示了本地抽帧和nori抽帧配置文件的差异
+
+```python
+--- c3d_pretrained_ncf101_nori.py	2024-03-24 15:46:20.950437836 +0800
++++ c3d_pretrained_ucf101_rgb.py	2024-02-23 10:22:25.396394506 +0800
+@@ -21,19 +21,7 @@
+ ann_file_test = f'/data/dataset/ucf101/ucf101_val_split_{split}_rawframes.txt'
+ ann_file_val = f'/data/dataset/ucf101/ucf101_val_split_{split}_rawframes.txt'
+ 
+-file_client_args_train = dict(
+-    io_backend='disk',
+-    nori_file = 'data/ucf101/ucf101_train_split_1_nid.json',
+-    dtype = 'uint8',
+-    retry = 60
+-)
+-
+-file_client_args_eval = dict(
+-    io_backend='disk',
+-    nori_file = 'data/ucf101/ucf101_val_split_1_nid.json',
+-    dtype = 'uint8',
+-    retry = 60
+-)
++file_client_args = dict(io_backend='disk')
+ 
+ # dataset pipeline
+ train_pipeline = [
+@@ -41,7 +29,7 @@
+     # dict(type='DecordInit', **file_client_args),
+     dict(type='SampleFrames', clip_len=16, frame_interval=1, num_clips=1),
+     # dict(type='DecordDecode'),
+-    dict(type='RawFrameDecodeNoir2', **file_client_args_train),
++    dict(type='RawFrameDecode', **file_client_args),
+     dict(type='Resize', scale=(-1, 128)),
+     dict(type='RandomCrop', size=112),
+     dict(type='Flip', flip_ratio=0.5),
+@@ -58,7 +46,7 @@
+         num_clips=1,
+         test_mode=True),
+     # dict(type='DecordDecode'),
+-    dict(type='RawFrameDecodeNoir2', **file_client_args_eval),
++    dict(type='RawFrameDecode', **file_client_args),
+     dict(type='Resize', scale=(-1, 128)),
+     dict(type='CenterCrop', crop_size=112),
+     dict(type='FormatShape', input_format='NCTHW'),
+@@ -74,7 +62,7 @@
+         num_clips=10,
+         test_mode=True),
+     # dict(type='DecordDecode'),
+-    dict(type='RawFrameDecodeNoir2', **file_client_args_eval),
++    dict(type='RawFrameDecode', **file_client_args),
+     dict(type='Resize', scale=(-1, 128)),
+     dict(type='CenterCrop', crop_size=112),
+     dict(type='FormatShape', input_format='NCTHW'),
+
 ```
