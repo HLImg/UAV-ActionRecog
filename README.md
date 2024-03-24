@@ -10,6 +10,6 @@
 
 ### Nori2数据
 
-- [ ] [UAVHuman]()
-- [ ] [UCF101]()
+- [x] [UAVHuman](./usage/nori2_video.md)
+- [x] [UCF101](./usage/nori2_video.md)
 - [ ] [K400]()
