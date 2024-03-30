@@ -153,3 +153,5 @@ mmaction/.mim
 results/*
 
 data/**/*.json
+
+model_zoo*/*
