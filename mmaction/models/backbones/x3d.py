@@ -241,6 +241,7 @@ class X3D(nn.Module):
         self.gamma_d = gamma_d
 
         self.pretrained = pretrained
+        
         self.in_channels = in_channels
         # Hard coded, can be changed by gamma_w
         self.base_channels = 24
